@@ -92,6 +92,8 @@ describe("currency slice", () => {
       type: fetchRates.rejected.type,
     });
     expect(nextState.loading).toBe(false);
-    expect(nextState.error).toBe("Failed to fetch exchange rates");
+    expect(nextState.error).toBe(
+      "Failed to fetch exchange rates, please try again"
+    );
   });
 });
