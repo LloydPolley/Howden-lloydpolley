@@ -1,31 +1,20 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import FromPricing from "./FromPricing";
-import type { CurrencyMap } from "@/types";
+import {
+  sampleRates,
+  sampleCurrencyUSD,
+  sampleCurrencyGBP,
+} from "@/mocks/currencyMocks";
 
 describe("FromPricing", () => {
-  const mockRates: CurrencyMap = {
-    USD: {
-      code: "USD",
-      alphaCode: "USD",
-      name: "US Dollar",
-      rate: 1,
-    },
-    GBP: {
-      code: "GBP",
-      alphaCode: "GBP",
-      name: "British Pound",
-      rate: 0.8,
-    },
-  };
-
   it("renders the label", () => {
     render(
       <FromPricing
-        rates={mockRates}
+        rates={sampleRates}
         onAmountChange={() => {}}
         handleSetFrom={() => {}}
-        value="USD"
+        value={sampleCurrencyUSD.code}
         name="fromCurrency"
         amount={1}
       />
@@ -37,10 +26,10 @@ describe("FromPricing", () => {
     const handleAmountChange = vi.fn();
     render(
       <FromPricing
-        rates={mockRates}
+        rates={sampleRates}
         onAmountChange={handleAmountChange}
         handleSetFrom={() => {}}
-        value="USD"
+        value={sampleCurrencyUSD.code}
         name="fromCurrency"
         amount={1}
       />
@@ -54,16 +43,16 @@ describe("FromPricing", () => {
   it("renders the select with correct value", () => {
     render(
       <FromPricing
-        rates={mockRates}
+        rates={sampleRates}
         onAmountChange={() => {}}
         handleSetFrom={() => {}}
-        value="GBP"
+        value={sampleCurrencyGBP.code}
         name="fromCurrency"
         amount={1}
       />
     );
 
     const select = screen.getByTestId("select");
-    expect(select).toHaveValue("GBP");
+    expect(select).toHaveValue(sampleCurrencyGBP.code);
   });
 });

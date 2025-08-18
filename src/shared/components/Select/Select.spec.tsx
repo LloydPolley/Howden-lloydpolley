@@ -2,48 +2,29 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Select from "./Select";
-import type { CurrencyMap } from "@/types";
+import { sampleRates } from "@/mocks/currencyMocks";
 
 describe("Select", () => {
-  const mockRates: CurrencyMap = {
-    USD: {
-      code: "USD",
-      alphaCode: "USD",
-      name: "US Dollar",
-      rate: 1,
-    },
-    GBP: {
-      code: "GBP",
-      alphaCode: "GBP",
-      name: "British Pound",
-      rate: 0.8,
-    },
-  };
-
-  const mockRates2: CurrencyMap = {
-    GBP: {
-      code: "GBP",
-      alphaCode: "GBP",
-      name: "British Pound",
-      rate: 0.8,
-    },
-  };
-
   it("renders placeholder when no value is provided", () => {
-    render(<Select data={mockRates} func={() => {}} />);
+    render(<Select data={sampleRates} func={() => {}} />);
     expect(screen.getByText("Select a currency")).toBeInTheDocument();
   });
 
-  it("renders the current value when provided", () => {
+  it("renders the current value when provided (endpoint doesnt provide own currency GBP - U.K. Pound Sterling)", () => {
     render(
-      <Select data={mockRates2} value="USD" name="US Dollar" func={() => {}} />
+      <Select
+        data={sampleRates}
+        value="AED"
+        name="U.A.E. Dirham"
+        func={() => {}}
+      />
     );
-    expect(screen.getByText("US Dollar")).toBeInTheDocument();
+    expect(screen.getByText("U.A.E. Dirham")).toBeInTheDocument();
   });
 
   it("calls func with the selected value on change", () => {
     const handleChange = vi.fn();
-    render(<Select data={mockRates} func={handleChange} />);
+    render(<Select data={sampleRates} func={handleChange} />);
 
     const select = screen.getByTestId("select");
     fireEvent.change(select, { target: { value: "GBP" } });

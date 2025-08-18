@@ -23,3 +23,5 @@ A simple React + Redux currency converter that fetches exchange rates and conver
 - Went with tailwind just for the ease of use
 - Used Redux Toolkit
 - For error messaging - I decided to show the error message when the form is submitted and the error is present, rather than just if the user has incorrect form
+- Was debating adding MSW, but decided against it as it was overkill for this simple application - added mocks instead
+- Decided against importing validation tool for inputs - only small amount of validation was required

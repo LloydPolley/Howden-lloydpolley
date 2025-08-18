@@ -6,6 +6,11 @@ import currencyReducer from "../../slice";
 import CurrencyConverter from "./CurrencyConverter";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+import {
+  sampleRates,
+  sampleCurrencyUSD,
+  sampleCurrencyEUR,
+} from "@/mocks/currencyMocks";
 
 vi.mock("@/features/currency/thunk", () => ({
   fetchRates: Object.assign(() => ({ type: "mock" }), {
@@ -21,28 +26,11 @@ describe("CurrencyConverter", () => {
       reducer: { currency: currencyReducer },
       preloadedState: {
         currency: {
-          rates: {
-            usd: {
-              code: "USD",
-              alphaCode: "USD",
-              name: "US Dollar",
-              rate: 1,
-            },
-          },
-          fromCurrency: {
-            code: "USD",
-            alphaCode: "USD",
-            name: "US Dollar",
-            rate: 1,
-          },
-          toCurrency: {
-            code: "EUR",
-            alphaCode: "EUR",
-            name: "Euro",
-            rate: 0.9,
-          },
+          rates: sampleRates,
+          fromCurrency: sampleCurrencyUSD,
+          toCurrency: sampleCurrencyEUR,
           result: null,
-          amount: 0,
+          amount: 10,
           loading: false,
           error: null,
         },
@@ -63,19 +51,9 @@ describe("CurrencyConverter", () => {
       reducer: { currency: currencyReducer },
       preloadedState: {
         currency: {
-          rates: {},
-          fromCurrency: {
-            code: "USD",
-            alphaCode: "USD",
-            name: "US Dollar",
-            rate: 1,
-          },
-          toCurrency: {
-            code: "EUR",
-            alphaCode: "EUR",
-            name: "Euro",
-            rate: 0.9,
-          },
+          rates: sampleRates,
+          fromCurrency: sampleCurrencyUSD,
+          toCurrency: sampleCurrencyEUR,
           result: null,
           amount: 0,
           loading: true,
@@ -98,19 +76,9 @@ describe("CurrencyConverter", () => {
       reducer: { currency: currencyReducer },
       preloadedState: {
         currency: {
-          rates: {},
-          fromCurrency: {
-            code: "USD",
-            alphaCode: "USD",
-            name: "US Dollar",
-            rate: 1,
-          },
-          toCurrency: {
-            code: "EUR",
-            alphaCode: "EUR",
-            name: "Euro",
-            rate: 0.9,
-          },
+          rates: sampleRates,
+          fromCurrency: sampleCurrencyUSD,
+          toCurrency: sampleCurrencyEUR,
           result: null,
           amount: 0,
           loading: false,
@@ -135,32 +103,9 @@ describe("CurrencyConverter", () => {
       reducer: { currency: currencyReducer },
       preloadedState: {
         currency: {
-          rates: {
-            usd: {
-              code: "USD",
-              alphaCode: "US D",
-              name: "US Dollar",
-              rate: 1,
-            },
-            eur: {
-              code: "EUR",
-              alphaCode: "EUR",
-              name: "Euro",
-              rate: 0.9,
-            },
-          },
-          fromCurrency: {
-            code: "USD",
-            alphaCode: "USD",
-            name: "US Dollar",
-            rate: 1,
-          },
-          toCurrency: {
-            code: "EUR",
-            alphaCode: "EUR",
-            name: "Euro",
-            rate: 0.9,
-          },
+          rates: sampleRates,
+          fromCurrency: sampleCurrencyUSD,
+          toCurrency: sampleCurrencyEUR,
           result: null,
           amount: 10,
           loading: false,

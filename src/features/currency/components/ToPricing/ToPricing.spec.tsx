@@ -1,37 +1,22 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import ToPricing from "./ToPricing";
-import type { CurrencyMap } from "@/types";
+import { sampleRates } from "@/mocks/currencyMocks";
 
 describe("ToPricing", () => {
-  const mockRates: CurrencyMap = {
-    USD: {
-      code: "USD",
-      alphaCode: "USD",
-      name: "US Dollar",
-      rate: 1,
-    },
-    EUR: {
-      code: "EUR",
-      alphaCode: "EUR",
-      name: "Euro",
-      rate: 0.9,
-    },
-  };
-
   it("renders the label", () => {
-    render(<ToPricing rates={mockRates} handleSetTo={() => {}} />);
+    render(<ToPricing rates={sampleRates} handleSetTo={() => {}} />);
     expect(screen.getByText(/To/)).toBeInTheDocument();
   });
 
   it("renders the select", () => {
-    render(<ToPricing rates={mockRates} handleSetTo={() => {}} />);
+    render(<ToPricing rates={sampleRates} handleSetTo={() => {}} />);
     expect(screen.getByTestId("select")).toBeInTheDocument();
   });
 
   it("calls handleSetTo when selection changes", () => {
     const handleSetTo = vi.fn();
-    render(<ToPricing rates={mockRates} handleSetTo={handleSetTo} />);
+    render(<ToPricing rates={sampleRates} handleSetTo={handleSetTo} />);
 
     const select = screen.getByTestId("select");
     fireEvent.change(select, { target: { value: "EUR" } });

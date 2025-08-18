@@ -1,4 +1,4 @@
-import type { CurrencyMap } from "../../types";
+import type { CurrencyMap } from "@/types";
 
 export default function Select({
   data,
@@ -24,7 +24,7 @@ export default function Select({
       {data &&
         Object.entries(data).map(([key, objectValue]) => {
           return (
-            <option className="p-2" key={key} value={objectValue.code}>
+            <option key={key} value={objectValue.code}>
               {objectValue.name}
             </option>
           );

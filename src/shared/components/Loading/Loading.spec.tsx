@@ -1,4 +1,3 @@
-// Loading.test.tsx
 import { render, screen } from "@testing-library/react";
 import Loading from "./Loading";
 import { describe, it, expect } from "vitest";

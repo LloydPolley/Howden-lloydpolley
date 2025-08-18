@@ -6,17 +6,17 @@ import currencyReducer, {
   setResult,
 } from "./slice";
 import { fetchRates } from "./thunk";
-import type { CurrencyState, CurrencyType, CurrencyMap } from "../../types";
+import type { CurrencyState } from "../../types";
 import { describe, it, expect } from "vitest";
+import {
+  sampleCurrencyUSD,
+  sampleCurrencyGBP,
+  sampleRates,
+} from "../../mocks/currencyMocks";
 
 describe("currency slice", () => {
   const initialState: CurrencyState = {
-    fromCurrency: {
-      code: "GBP",
-      alphaCode: "GBP",
-      name: "U.K. Pound Sterling",
-      rate: 1,
-    },
+    fromCurrency: sampleCurrencyGBP,
     toCurrency: {
       code: "",
       alphaCode: "",
@@ -30,17 +30,10 @@ describe("currency slice", () => {
     error: null,
   };
 
-  const sampleCurrency: CurrencyType = {
-    code: "USD",
-    alphaCode: "USD",
-    name: "US Dollar",
-    rate: 1,
-  };
-
   it("handles setFromCurrency", () => {
     const nextState = currencyReducer(
       initialState,
-      setFromCurrency(sampleCurrency)
+      setFromCurrency(sampleCurrencyUSD)
     );
     expect(nextState.fromCurrency.code).toBe("USD");
   });
@@ -48,7 +41,7 @@ describe("currency slice", () => {
   it("handles setToCurrency", () => {
     const nextState = currencyReducer(
       initialState,
-      setToCurrency(sampleCurrency)
+      setToCurrency(sampleCurrencyUSD)
     );
     expect(nextState.toCurrency.code).toBe("USD");
   });
@@ -59,9 +52,8 @@ describe("currency slice", () => {
   });
 
   it("handles setRates", () => {
-    const rates: CurrencyMap = { USD: sampleCurrency };
-    const nextState = currencyReducer(initialState, setRates(rates));
-    expect(nextState.rates).toEqual(rates);
+    const nextState = currencyReducer(initialState, setRates(sampleRates));
+    expect(nextState.rates).toEqual(sampleRates);
   });
 
   it("handles setResult", () => {
@@ -77,12 +69,11 @@ describe("currency slice", () => {
   });
 
   it("handles fetchRates.fulfilled", () => {
-    const rates: CurrencyMap = { USD: sampleCurrency };
     const nextState = currencyReducer(initialState, {
       type: fetchRates.fulfilled.type,
-      payload: rates,
+      payload: sampleRates,
     });
-    expect(nextState.rates).toEqual(rates);
+    expect(nextState.rates).toEqual(sampleRates);
     expect(nextState.loading).toBe(false);
     expect(nextState.error).toBeNull();
   });

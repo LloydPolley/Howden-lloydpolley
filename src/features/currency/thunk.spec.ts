@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import currencyReducer from "./slice";
 import { fetchRates } from "./thunk";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { sampleCurrencyUSD } from "../../mocks/currencyMocks";
 
 describe("fetchRates thunk", () => {
   beforeEach(() => {
@@ -9,26 +10,20 @@ describe("fetchRates thunk", () => {
   });
 
   it("returns rates when fetch succeeds", async () => {
-    const mockResponse = {
-      USD: {
-        code: "USD",
-        name: "US Dollar",
-        rate: 1,
-        alphaCode: "USD",
-      },
-    };
-
     vi.stubGlobal(
       "fetch",
       vi.fn(() =>
-        Promise.resolve({ ok: true, json: () => Promise.resolve(mockResponse) })
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ USD: sampleCurrencyUSD }),
+        })
       ) as any
     );
 
     const store = configureStore({ reducer: { currency: currencyReducer } });
     const resultAction = await store.dispatch(fetchRates("USD"));
 
-    expect(resultAction.payload).toEqual(mockResponse);
+    expect(resultAction.payload).toEqual({ USD: sampleCurrencyUSD });
     expect(fetch).toHaveBeenCalledWith(
       "http://www.floatrates.com/daily/usd.json"
     );
