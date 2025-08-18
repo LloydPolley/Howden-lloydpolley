@@ -29,6 +29,8 @@ export default function CurrencyConverter() {
     error: fetchError,
   } = useAppSelector((state) => state.currency);
 
+  console.log("rates", rates);
+
   useEffect(() => {
     dispatch(fetchRates(fromCurrency.code));
   }, [dispatch, fromCurrency]);
