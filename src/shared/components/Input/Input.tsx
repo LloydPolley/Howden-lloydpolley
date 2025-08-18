@@ -1,9 +1,11 @@
 export default function Input({
   onChange,
   placeholder,
+  amount,
 }: {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  amount?: number;
 }) {
   return (
     <input
@@ -11,6 +13,7 @@ export default function Input({
       onChange={onChange}
       type="number"
       placeholder={placeholder}
+      value={amount || ""}
     />
   );
 }

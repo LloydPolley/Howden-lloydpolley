@@ -1,12 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { fetchRates } from "./currencyThunk";
+import { fetchRates } from "./thunk";
 import type { CurrencyMap, CurrencyType } from "../../types";
 import type { CurrencyState } from "../../types";
 
 const defaultRate = {
   code: "GBP",
   alphaCode: "GBP",
-  numericCode: "826",
   name: "U.K. Pound Sterling",
   rate: 1,
   inverseRate: 1,
@@ -15,7 +14,6 @@ const defaultRate = {
 const defaultToRate = {
   code: "",
   alphaCode: "",
-  numericCode: "",
   name: "",
   rate: 1,
   inverseRate: 1,
@@ -24,7 +22,7 @@ const defaultToRate = {
 const initialState: CurrencyState = {
   fromCurrency: defaultRate,
   toCurrency: defaultToRate,
-  amount: 0,
+  amount: 1,
   result: 0,
   rates: {},
   loading: false,
@@ -36,14 +34,12 @@ const currencySlice = createSlice({
   initialState,
   reducers: {
     setFromCurrency: (state, action: PayloadAction<CurrencyType>) => {
-      const { code, alphaCode, numericCode, name } = action.payload;
+      const { code, alphaCode, name } = action.payload;
       state.fromCurrency = {
         code,
         alphaCode,
-        numericCode,
         name,
         rate: 1,
-        inverseRate: 1,
       };
     },
     setToCurrency: (state, action: PayloadAction<CurrencyType>) => {

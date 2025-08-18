@@ -1,20 +1,20 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/useCurrency";
+import { useAppDispatch, useAppSelector } from "@/hooks/useCurrency";
 import {
   setFromCurrency,
   setToCurrency,
   setResult,
   setAmount,
-} from "@/features/currency/currencySlice";
-import Button from "@/components/Button/Button";
-import FromPricing from "@/components/CurrencyComponents/FromPricing/FromPricing";
-import ToPricing from "@/components/CurrencyComponents/ToPricing/ToPricing";
-import ConversionResult from "@/components/CurrencyComponents/ConversionResult/ConversionResult";
-import { convertCurrency } from "@/features/currency/currencyUtils";
-import useAmountValidation from "../../hooks/useAmountValidation";
-import Error from "@/components/Error/Error";
+} from "@/features/currency/slice";
+import FromPricing from "@/features/currency/components/FromPricing/FromPricing";
+import ToPricing from "@/features/currency/components/ToPricing/ToPricing";
+import ConversionResult from "@/features/currency/components/ConversionResult/ConversionResult";
+import { convertCurrency } from "@/features/currency/utils";
+import useAmountValidation from "@/hooks/useAmountValidation";
+import Error from "@/shared/components/Error/Error";
 import { useEffect } from "react";
-import { fetchRates } from "@/features/currency/currencyThunk";
-import Loading from "@/components/Loading/Loading";
+import { fetchRates } from "@/features/currency/thunk";
+import Loading from "@/shared/components/Loading/Loading";
+import SubmitButton from "@/shared/components/SubmitButton/SubmitButton";
 
 export default function CurrencyConvertor() {
   const dispatch = useAppDispatch();
@@ -54,29 +54,14 @@ export default function CurrencyConvertor() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const toRate = rates[toCurrency.code.toLowerCase()];
-    const fromRate = rates[fromCurrency.code.toLowerCase()];
-
-    console.log("submit");
-    console.log("toRate", toRate);
-    console.log("fromRate", fromRate);
-
-    if (!toRate || !fromRate) {
-      return;
-    }
-
     const calculatedResult = convertCurrency({
       amount: amount,
-      fromRate: fromRate.rate,
-      toRate: toRate.rate,
+      fromRate: fromCurrency.rate,
+      toRate: toCurrency.rate,
     });
 
     dispatch(setResult(calculatedResult));
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   if (fetchError) {
     return (
@@ -89,6 +74,7 @@ export default function CurrencyConvertor() {
   return (
     <div className="relative z-10 w-full max-w-md">
       <form
+        data-testid="currency-form"
         onSubmit={onSubmit}
         className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20"
       >
@@ -98,13 +84,14 @@ export default function CurrencyConvertor() {
           handleSetFrom={handleSetFrom}
           value={fromCurrency.code}
           name={fromCurrency.name}
+          amount={amount}
         />
         <ToPricing rates={rates} handleSetTo={handleSetTo} />
         <ConversionResult result={result || 0} />
         <Error error={fetchError || error} />
-        <Button type="submit" disabled={!isValid}>
-          Convert Currency
-        </Button>
+        <SubmitButton disabled={!isValid || loading}>
+          {loading ? <Loading /> : "Convert Currency"}
+        </SubmitButton>
       </form>
     </div>
   );

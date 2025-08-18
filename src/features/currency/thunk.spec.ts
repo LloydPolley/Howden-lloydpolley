@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import currencyReducer from "./currencySlice";
-import { fetchRates } from "./currencyThunk";
+import currencyReducer from "./slice";
+import { fetchRates } from "./thunk";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 describe("fetchRates thunk", () => {
@@ -14,9 +14,7 @@ describe("fetchRates thunk", () => {
         code: "USD",
         name: "US Dollar",
         rate: 1,
-        inverseRate: 1,
         alphaCode: "USD",
-        numericCode: "840",
       },
     };
 

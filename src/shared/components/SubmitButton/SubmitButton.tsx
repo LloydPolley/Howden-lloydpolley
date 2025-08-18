@@ -1,17 +1,15 @@
-export default function Button({
+export default function SubmitButton({
   children,
   disabled,
-  type = "button",
 }: {
   children: React.ReactNode;
   disabled?: boolean;
-  type?: "submit" | "button";
 }) {
   return (
     <button
       className={`
     w-full font-semibold py-4 px-6 rounded-2xl transition-all duration-300 
-    focus:outline-none focus:ring-2 focus:ring-white/50
+    focus:outline-none focus:ring-2 focus:ring-white/50 h-18
     ${
       disabled
         ? "bg-gray-500/30 text-gray-400 cursor-not-allowed"
@@ -19,7 +17,8 @@ export default function Button({
     }
   `}
       disabled={disabled}
-      type={type}
+      data-testid="submit-btn"
+      type="submit"
     >
       {children}
     </button>

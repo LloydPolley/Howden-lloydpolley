@@ -1,6 +1,5 @@
-// convertCurrency.test.ts
 import { describe, it, expect } from "vitest";
-import { convertCurrency } from "./currencyUtils";
+import { convertCurrency } from "./utils";
 
 describe("convertCurrency", () => {
   it("converts correctly from one rate to another", () => {
@@ -10,7 +9,7 @@ describe("convertCurrency", () => {
 
   it("rounds to 2 decimal places", () => {
     const result = convertCurrency({ amount: 10, fromRate: 3, toRate: 2 });
-    expect(result).toBe(6.67); // (10 * 2) / 3 = 6.666...
+    expect(result).toBe(6.67);
   });
 
   it("returns 0 when amount is 0", () => {

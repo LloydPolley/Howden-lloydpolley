@@ -1,10 +1,8 @@
 export type CurrencyType = {
   name: string;
   code: string;
-  numericCode: string;
   alphaCode: string;
   rate: number;
-  inverseRate: number;
 };
 
 export type CurrencyMap = Record<string, CurrencyType>;

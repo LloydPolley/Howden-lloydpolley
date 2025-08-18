@@ -1,26 +1,21 @@
-// FromPricing.test.tsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import FromPricing from "./FromPricing";
-import type { CurrencyMap } from "../../../types";
+import type { CurrencyMap } from "@/types";
 
 describe("FromPricing", () => {
   const mockRates: CurrencyMap = {
     USD: {
       code: "USD",
       alphaCode: "USD",
-      numericCode: "840",
       name: "US Dollar",
       rate: 1,
-      inverseRate: 1,
     },
     GBP: {
       code: "GBP",
       alphaCode: "GBP",
-      numericCode: "826",
       name: "British Pound",
       rate: 0.8,
-      inverseRate: 1.25,
     },
   };
 
@@ -32,6 +27,7 @@ describe("FromPricing", () => {
         handleSetFrom={() => {}}
         value="USD"
         name="fromCurrency"
+        amount={1}
       />
     );
     expect(screen.getByText(/From/)).toBeInTheDocument();
@@ -46,6 +42,7 @@ describe("FromPricing", () => {
         handleSetFrom={() => {}}
         value="USD"
         name="fromCurrency"
+        amount={1}
       />
     );
 
@@ -62,6 +59,7 @@ describe("FromPricing", () => {
         handleSetFrom={() => {}}
         value="GBP"
         name="fromCurrency"
+        amount={1}
       />
     );
 

@@ -2,25 +2,21 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Select from "./Select";
-import type { CurrencyMap } from "../../types";
+import type { CurrencyMap } from "@/types";
 
 describe("Select", () => {
   const mockRates: CurrencyMap = {
     USD: {
       code: "USD",
       alphaCode: "USD",
-      numericCode: "840",
       name: "US Dollar",
       rate: 1,
-      inverseRate: 1,
     },
     GBP: {
       code: "GBP",
       alphaCode: "GBP",
-      numericCode: "826",
       name: "British Pound",
       rate: 0.8,
-      inverseRate: 1.25,
     },
   };
 
@@ -28,10 +24,8 @@ describe("Select", () => {
     GBP: {
       code: "GBP",
       alphaCode: "GBP",
-      numericCode: "826",
       name: "British Pound",
       rate: 0.8,
-      inverseRate: 1.25,
     },
   };
 

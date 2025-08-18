@@ -1,12 +1,11 @@
-// currencySlice.test.ts
 import currencyReducer, {
   setFromCurrency,
   setToCurrency,
   setAmount,
   setRates,
   setResult,
-} from "./currencySlice";
-import { fetchRates } from "./currencyThunk";
+} from "./slice";
+import { fetchRates } from "./thunk";
 import type { CurrencyState, CurrencyType, CurrencyMap } from "../../types";
 import { describe, it, expect } from "vitest";
 
@@ -15,18 +14,14 @@ describe("currency slice", () => {
     fromCurrency: {
       code: "GBP",
       alphaCode: "GBP",
-      numericCode: "826",
       name: "U.K. Pound Sterling",
       rate: 1,
-      inverseRate: 1,
     },
     toCurrency: {
       code: "",
       alphaCode: "",
-      numericCode: "",
       name: "",
       rate: 1,
-      inverseRate: 1,
     },
     amount: 0,
     result: 0,
@@ -38,10 +33,8 @@ describe("currency slice", () => {
   const sampleCurrency: CurrencyType = {
     code: "USD",
     alphaCode: "USD",
-    numericCode: "840",
     name: "US Dollar",
     rate: 1,
-    inverseRate: 1,
   };
 
   it("handles setFromCurrency", () => {

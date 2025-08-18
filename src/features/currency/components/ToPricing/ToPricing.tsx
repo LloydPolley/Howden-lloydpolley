@@ -1,6 +1,6 @@
-import Select from "../../Select/Select";
-import type { CurrencyMap } from "../../../types";
-import Label from "../../Label/Label";
+import Select from "@/shared/components/Select/Select";
+import type { CurrencyMap } from "@/types";
+import Label from "@/shared/components/Label/Label";
 
 export default function ToPricing({
   rates,

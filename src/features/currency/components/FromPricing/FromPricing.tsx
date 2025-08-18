@@ -1,7 +1,7 @@
-import Input from "../../../components/Input/Input";
-import Select from "../../../components/Select/Select";
-import type { CurrencyMap } from "../../../types";
-import Label from "../../../components/Label/Label";
+import Input from "@/shared/components/Input/Input";
+import Select from "@/shared/components/Select/Select";
+import type { CurrencyMap } from "@/types";
+import Label from "@/shared/components/Label/Label";
 
 export default function FromPricing({
   rates,
@@ -9,12 +9,14 @@ export default function FromPricing({
   handleSetFrom,
   value,
   name,
+  amount,
 }: {
   rates: CurrencyMap;
   onAmountChange: (value: number) => void;
   handleSetFrom: (value: string) => void;
   value: string;
   name: string;
+  amount: number;
 }) {
   return (
     <div className="mb-6">
@@ -23,6 +25,7 @@ export default function FromPricing({
         <Input
           onChange={(e) => onAmountChange(Number(e.target.value))}
           placeholder="Enter amount"
+          amount={amount}
         />
         <Select data={rates} value={value} name={name} func={handleSetFrom} />
       </div>

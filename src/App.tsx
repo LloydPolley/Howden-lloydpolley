@@ -1,5 +1,5 @@
-import CurrencyConvertor from "./features/currency/CurrencyConvertor";
-import Hero from "./components/Hero/Hero";
+import CurrencyConvertor from "@/features/currency/components/CurrencyCovertor/CurrencyConvertor";
+import Hero from "@/shared/components/Hero/Hero";
 
 function App() {
   return (
