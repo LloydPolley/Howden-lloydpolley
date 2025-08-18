@@ -70,7 +70,7 @@ const currencySlice = createSlice({
       })
       .addCase(fetchRates.rejected, (state) => {
         state.loading = false;
-        state.error = "Failed to fetch exchange rates";
+        state.error = "Failed to fetch exchange rates, please try again";
       });
   },
 });

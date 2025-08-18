@@ -11,12 +11,13 @@ import ConversionResult from "@/features/currency/components/ConversionResult/Co
 import { convertCurrency } from "@/features/currency/utils";
 import useAmountValidation from "@/hooks/useAmountValidation";
 import Error from "@/shared/components/Error/Error";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchRates } from "@/features/currency/thunk";
 import Loading from "@/shared/components/Loading/Loading";
 import SubmitButton from "@/shared/components/SubmitButton/SubmitButton";
 
-export default function CurrencyConvertor() {
+export default function CurrencyConverter() {
+  const [submitted, setSubmitted] = useState(false);
   const dispatch = useAppDispatch();
   const {
     rates,
@@ -54,6 +55,7 @@ export default function CurrencyConvertor() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitted(true);
     const calculatedResult = convertCurrency({
       amount: amount,
       fromRate: fromCurrency.rate,
@@ -64,11 +66,7 @@ export default function CurrencyConvertor() {
   };
 
   if (fetchError) {
-    return (
-      <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20">
-        <Error error={fetchError} />
-      </div>
-    );
+    return <Error error={fetchError} />;
   }
 
   return (
@@ -88,7 +86,8 @@ export default function CurrencyConvertor() {
         />
         <ToPricing rates={rates} handleSetTo={handleSetTo} />
         <ConversionResult result={result || 0} />
-        <Error error={fetchError || error} />
+
+        <div className="min-h-10">{submitted && <Error error={error} />}</div>
         <SubmitButton disabled={!isValid || loading}>
           {loading ? <Loading /> : "Convert Currency"}
         </SubmitButton>

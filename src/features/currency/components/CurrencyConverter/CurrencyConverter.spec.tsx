@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import currencyReducer from "../../slice";
-import CurrencyConvertor from "./CurrencyConvertor";
+import CurrencyConverter from "./CurrencyConverter";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 
@@ -15,7 +15,7 @@ vi.mock("@/features/currency/thunk", () => ({
   }),
 }));
 
-describe("CurrencyConvertor", () => {
+describe("CurrencyConverter", () => {
   it("renders the form", () => {
     const store = configureStore({
       reducer: { currency: currencyReducer },
@@ -51,7 +51,7 @@ describe("CurrencyConvertor", () => {
 
     render(
       <Provider store={store}>
-        <CurrencyConvertor />
+        <CurrencyConverter />
       </Provider>
     );
 
@@ -86,7 +86,7 @@ describe("CurrencyConvertor", () => {
 
     render(
       <Provider store={store}>
-        <CurrencyConvertor />
+        <CurrencyConverter />
       </Provider>
     );
 
@@ -121,7 +121,7 @@ describe("CurrencyConvertor", () => {
 
     render(
       <Provider store={store}>
-        <CurrencyConvertor />
+        <CurrencyConverter />
       </Provider>
     );
 
@@ -171,7 +171,7 @@ describe("CurrencyConvertor", () => {
 
     render(
       <Provider store={store}>
-        <CurrencyConvertor />
+        <CurrencyConverter />
       </Provider>
     );
 

@@ -43,7 +43,10 @@ describe("fetchRates thunk", () => {
     const store = configureStore({ reducer: { currency: currencyReducer } });
     const resultAction = await store.dispatch(fetchRates("USD"));
 
-    expect(resultAction.type).toBe("currency/fetchRates/rejected");
-    expect(resultAction.error.message).toBe("HTTP error: 500");
+    if (fetchRates.rejected.match(resultAction)) {
+      expect(resultAction.error.message).toBe("HTTP error: 500");
+    } else {
+      throw new Error("Expected fetchRates to be rejected");
+    }
   });
 });
