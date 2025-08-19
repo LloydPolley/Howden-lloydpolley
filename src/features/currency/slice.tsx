@@ -23,7 +23,7 @@ const initialState: CurrencyState = {
   fromCurrency: defaultRate,
   toCurrency: defaultToRate,
   amount: 1,
-  result: 0,
+  result: null,
   rates: {},
   loading: false,
   error: null,
@@ -51,7 +51,7 @@ const currencySlice = createSlice({
     setRates: (state, action: PayloadAction<Record<string, CurrencyType>>) => {
       state.rates = action.payload;
     },
-    setResult: (state, action: PayloadAction<number>) => {
+    setResult: (state, action: PayloadAction<number | null>) => {
       state.result = action.payload;
     },
   },

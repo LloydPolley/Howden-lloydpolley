@@ -1,4 +1,8 @@
-export default function ConversionResult({ result }: { result: number }) {
+export default function ConversionResult({
+  result,
+}: {
+  result: number | null;
+}) {
   return (
     <div className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 backdrop-blur-sm rounded-2xl p-6  border border-white/20">
       <div className="flex items-center justify-between">

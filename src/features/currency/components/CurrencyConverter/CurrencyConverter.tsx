@@ -87,7 +87,7 @@ export default function CurrencyConverter() {
           amount={amount}
         />
         <ToPricing rates={rates} handleSetTo={handleSetTo} />
-        <ConversionResult result={result || 0} />
+        <ConversionResult result={result} />
 
         <div className="min-h-10">{submitted && <Error error={error} />}</div>
         <SubmitButton disabled={!isValid || loading}>
